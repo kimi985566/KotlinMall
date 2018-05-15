@@ -7,6 +7,10 @@ import retrofit2.http.POST
 import rx.Observable
 
 interface UserApi {
+    /*
+        用户注册
+     */
     @POST("userCenter/register")
     fun register(@Body req: RegisterReq): Observable<BaseResp<String>>
+
 }

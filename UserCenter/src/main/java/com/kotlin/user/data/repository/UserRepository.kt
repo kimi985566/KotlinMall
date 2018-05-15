@@ -7,9 +7,10 @@ import com.kotlin.user.data.protocol.RegisterReq
 import rx.Observable
 
 class UserRepository {
-
+    /**
+     * 用户注册
+     * */
     fun register(mobile: String, pwd: String, verifyCode: String): Observable<BaseResp<String>> {
-        return RetrofitFactory.instance.create(UserApi::class.java)
-                .register(RegisterReq(mobile, pwd, verifyCode))
+        return RetrofitFactory.instance.create(UserApi::class.java).register(RegisterReq(mobile, pwd, verifyCode))
     }
 }
