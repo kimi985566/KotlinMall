@@ -29,8 +29,20 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView {
 
     private fun initInjection() {
 
-        //注入到当前的Activity之中
-        DaggerUserComponent.builder().userModule(UserModule()).build().inject(this)
+        /**
+         * Dagger2采用了apt代码自动生成技术，其注解是停留在编译时，不影响性能
+         *
+         * Module并不是必需的，但Component是必不可少的；
+         * 编译后生成的Component实现类的名称是Dagger+我们所定义的Component接口的名称
+         *
+         * 注入到当前的Activity之中
+         * */
+        DaggerUserComponent
+                .builder()
+                .activityComponent(activityComponent)
+                .userModule(UserModule())
+                .build()
+                .inject(this)
 
         mPresenter.mView = this
     }

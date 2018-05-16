@@ -1,5 +1,7 @@
 package com.kotlin.user.injection.component
 
+import com.kotlin.base.injection.PreComponentScope
+import com.kotlin.base.injection.component.ActivityComponent
 import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.ui.activity.RegisterActivity
 import dagger.Component
@@ -12,10 +14,16 @@ import dagger.Component
  * Component依赖关系通过dependencies属性添加
  * App必须有一个Component用来管理全局实例
  *
- * 在完成前需要先编译生成，否则没有对应方法生成
+ * dependence实现方式总结：
+ * 1. 父Component中要显式的写出需要暴露可提供给子Component的依赖；
+ * 2. 子Component在注解中使用dependencies=来连接父Component；
+ * 3. 注意子Component实例化方式。
+ *
+ * 在完成前需要先编译生成，否则不会生成编译文件
  * */
 
-@Component(modules = [(UserModule::class)])
+@PreComponentScope
+@Component(modules = [(UserModule::class)], dependencies = [(ActivityComponent::class)])
 interface UserComponent {
 
     fun inject(activity: RegisterActivity)
