@@ -6,10 +6,14 @@ import com.kotlin.user.data.repository.UserRepository
 import com.kotlin.user.service.UserService
 import rx.Observable
 import rx.functions.Func1
+import javax.inject.Inject
 
-class UserServiceImpl : UserService {
-    override fun register(mobile: String, verifyCode: String, pwd: String): Observable<Boolean> {
-        val repository = UserRepository()
+class UserServiceImpl @Inject constructor() : UserService {
+
+    @Inject
+    lateinit var repository: UserRepository
+
+    override fun register(mobile: String, pwd: String, verifyCode: String): Observable<Boolean> {
 
         return repository.register(mobile, pwd, verifyCode)
                 .flatMap(Func1<BaseResp<String>, Observable<Boolean>> { t ->

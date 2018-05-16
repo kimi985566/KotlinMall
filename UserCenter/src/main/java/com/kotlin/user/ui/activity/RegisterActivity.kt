@@ -3,6 +3,8 @@ package com.kotlin.user.ui.activity
 import android.os.Bundle
 import com.kotlin.base.ui.activity.BaseMVPActivity
 import com.kotlin.user.R
+import com.kotlin.user.injection.component.DaggerUserComponent
+import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.RegisterPresenter
 import com.kotlin.user.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
@@ -14,16 +16,23 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        mPresenter = RegisterPresenter()
-        mPresenter.mView = this
+        initInjection()
 
         mRegisterBtn.setOnClickListener {
-            mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPwdEt.text.toString())
+            mPresenter.register(mMobileEt.text.toString(), mPwdEt.text.toString(), mVerifyCodeEt.text.toString())
         }
     }
 
     override fun onRegisterResult(result: Boolean) {
         toast("注册成功")
+    }
+
+    private fun initInjection() {
+
+        //注入到当前的Activity之中
+        DaggerUserComponent.builder().userModule(UserModule()).build().inject(this)
+
+        mPresenter.mView = this
     }
 
 }
