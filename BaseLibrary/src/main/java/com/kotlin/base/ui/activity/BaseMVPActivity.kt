@@ -40,7 +40,7 @@ abstract class BaseMVPActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
     private fun initActivityInjection() {
         mActivityComponent = DaggerActivityComponent
                 .builder()
-                .appComponent((application as BaseApplication).appComponent)
+                .appComponent((application as BaseApplication).mAppComponent)
                 .activityModule(ActivityModule(this))
                 .lifecycleProviderModule(LifecycleProviderModule(this))
                 .build()

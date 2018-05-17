@@ -1,6 +1,7 @@
 package com.kotlin.user.ui.activity
 
 import android.os.Bundle
+import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMVPActivity
 import com.kotlin.user.R
@@ -12,6 +13,9 @@ import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.design.snackbar
 
 class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView {
+
+    private var pressTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -42,5 +46,15 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView {
                 .inject(this)
 
         mPresenter.mView = this
+    }
+
+    override fun onBackPressed() {
+        val time = System.currentTimeMillis()
+        if (time - pressTime > 2000) {
+            snackbar(mRegisterRootView, resources.getString(R.string.press_again))
+            pressTime = time
+        } else {
+            AppManager.instance.exitApp(this)
+        }
     }
 }
