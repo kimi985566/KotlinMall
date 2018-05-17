@@ -12,8 +12,8 @@
     <com.kotlin.base.widgets.HeaderBar
         style="@style/MatchWrap"
         app:isShowBack="false"
-        app:rightText="登陆"
-        app:titleText="注册"/>
+        app:rightText="@string/register_head_tv_right"
+        app:titleText="@string/register_head_tv_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
