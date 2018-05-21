@@ -8,13 +8,16 @@ import android.widget.ImageView
 import com.kotlin.base.R
 import org.jetbrains.anko.find
 
-class ProgressLoading(context: Context, theme: Int) : Dialog(context, theme) {
+/**
+ * 使用工厂方式静态创建
+ * */
+class ProgressLoading private constructor(context: Context, theme: Int) : Dialog(context, theme) {
 
     companion object {
         private lateinit var mDialog: ProgressLoading
         private var animDrawable: AnimationDrawable? = null
 
-        fun create(context: Context) {
+        fun create(context: Context): ProgressLoading {
             mDialog = ProgressLoading(context, R.style.LightProgressDialog)
             mDialog.setContentView(R.layout.progress_dialog)
             mDialog.setCancelable(true)
@@ -28,6 +31,8 @@ class ProgressLoading(context: Context, theme: Int) : Dialog(context, theme) {
 
             val loadingView = mDialog.find<ImageView>(R.id.iv_loading)
             animDrawable = loadingView.background as AnimationDrawable
+
+            return mDialog
         }
     }
 
@@ -37,7 +42,7 @@ class ProgressLoading(context: Context, theme: Int) : Dialog(context, theme) {
     }
 
     fun hideLoading() {
-        super.show()
+        super.dismiss()
         animDrawable?.stop()
     }
 }

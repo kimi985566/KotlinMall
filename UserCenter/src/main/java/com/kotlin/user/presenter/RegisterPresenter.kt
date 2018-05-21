@@ -22,47 +22,16 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
     lateinit var userService: UserService
 
     fun register(mobile: String, pwd: String, verifyCode: String) {
-        /*
-        业务逻辑
-         */
-
-        userService.register(mobile, pwd, verifyCode)
-                .execute(object : BaseSubscriber<Boolean>() {
-                    override fun onNext(t: Boolean) {
-                        if (t) {
-                            mView.onRegisterResult("注册成功")
-                        }
-                    }
-                }, lifecycleProvider)
-
-
-    }
-}
-
-/*
-/*
-    用户注册Presenter
- */
-class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
-
-    @Inject
-    lateinit var userService: UserService
-
-
-    fun register(mobile: String, pwd: String, verifyCode: String) {
         if (!checkNetWork()) {
             return
         }
         mView.showLoading()
 
-        userService.register(mobile, pwd, verifyCode).excute(object : BaseSubscriber<Boolean>(mView) {
+        userService.register(mobile, pwd, verifyCode).execute(object : BaseSubscriber<Boolean>(mView) {
             override fun onNext(t: Boolean) {
                 if (t)
                     mView.onRegisterResult("注册成功")
             }
         }, lifecycleProvider)
-
     }
-
 }
-* */
