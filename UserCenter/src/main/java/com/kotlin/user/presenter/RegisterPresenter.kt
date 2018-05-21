@@ -31,8 +31,6 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
             override fun onNext(t: Boolean) {
                 if (t)
                     mView.onRegisterResult("注册成功")
-                else
-                    mView.onRegisterResult("注册失败")
             }
         }, lifecycleProvider)
     }

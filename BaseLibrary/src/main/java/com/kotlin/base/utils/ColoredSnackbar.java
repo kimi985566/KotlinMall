@@ -17,28 +17,28 @@ public class ColoredSnackbar {
         return null;
     }
 
-    private static Snackbar colorSnackBar(Snackbar snackbar, int colorId) {
+    private static Snackbar colorSnackBar(View view, String text, int colorId) {
+        Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT);
         View snackBarView = getSnackBarLayout(snackbar);
         if (snackBarView != null) {
             snackBarView.setBackgroundColor(colorId);
         }
-
         return snackbar;
     }
 
-    public static Snackbar info(Snackbar snackbar) {
-        return colorSnackBar(snackbar, blue);
+    public static Snackbar info(View view, String text) {
+        return colorSnackBar(view, text, blue);
     }
 
-    public static Snackbar warning(Snackbar snackbar) {
-        return colorSnackBar(snackbar, orange);
+    public static Snackbar warning(View view, String text) {
+        return colorSnackBar(view, text, orange);
     }
 
-    public static Snackbar alert(Snackbar snackbar) {
-        return colorSnackBar(snackbar, red);
+    public static Snackbar alert(View view, String text) {
+        return colorSnackBar(view, text, red);
     }
 
-    public static Snackbar confirm(Snackbar snackbar) {
-        return colorSnackBar(snackbar, green);
+    public static Snackbar confirm(View view, String text) {
+        return colorSnackBar(view, text, green);
     }
 }

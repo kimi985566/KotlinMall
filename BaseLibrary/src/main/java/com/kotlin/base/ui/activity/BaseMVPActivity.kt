@@ -1,6 +1,7 @@
 package com.kotlin.base.ui.activity
 
 import android.os.Bundle
+import com.kotlin.base.R
 import com.kotlin.base.common.BaseApplication
 import com.kotlin.base.injection.component.ActivityComponent
 import com.kotlin.base.injection.component.DaggerActivityComponent
