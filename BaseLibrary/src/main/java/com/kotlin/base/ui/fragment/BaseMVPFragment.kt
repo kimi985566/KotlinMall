@@ -8,6 +8,7 @@ import com.kotlin.base.injection.module.ActivityModule
 import com.kotlin.base.injection.module.LifecycleProviderModule
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.presenter.view.BaseView
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 abstract class BaseMVPFragment<T : BasePresenter<*>> : BaseFragment(), BaseView {
@@ -34,7 +35,8 @@ abstract class BaseMVPFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
     override fun hideLoading() {
     }
 
-    override fun onError() {
+    override fun onError(text:String) {
+        toast(text)
     }
 
     private fun initActivityInjection() {

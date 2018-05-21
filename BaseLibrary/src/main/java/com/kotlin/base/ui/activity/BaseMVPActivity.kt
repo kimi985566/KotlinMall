@@ -9,6 +9,7 @@ import com.kotlin.base.injection.module.LifecycleProviderModule
 import com.kotlin.base.presenter.BasePresenter
 import com.kotlin.base.presenter.view.BaseView
 import com.kotlin.base.widgets.ProgressLoading
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 abstract class BaseMVPActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
@@ -18,7 +19,7 @@ abstract class BaseMVPActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
 
     lateinit var mActivityComponent: ActivityComponent
 
-    private  lateinit var mProgressLoading: ProgressLoading
+    private lateinit var mProgressLoading: ProgressLoading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,8 @@ abstract class BaseMVPActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
         mProgressLoading.hideLoading()
     }
 
-    override fun onError() {
+    override fun onError(text: String) {
+        toast(text)
     }
 
     private fun initActivityInjection() {

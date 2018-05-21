@@ -15,6 +15,10 @@
     <color name="common_red">#f11919</color>
     <color name="common_white">#ffffff</color>
     <color name="common_yellow">#fe9c2f</color>
+    <color name="snackbar_info">#193af7</color>
+    <color name="snackbar_warning">#fece2f</color>
+    <color name="snackbar_alert">#f11919</color>
+    <color name="snackbar_confirm">#38d514</color>
 
     <color name="text_dark">#999999</color>
     <color name="text_light_dark">#333333</color>

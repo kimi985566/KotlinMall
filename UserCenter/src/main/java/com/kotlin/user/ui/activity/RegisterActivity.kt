@@ -1,9 +1,12 @@
 package com.kotlin.user.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.kotlin.base.common.AppManager
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMVPActivity
+import com.kotlin.base.utils.ColoredSnackbar
+import com.kotlin.base.widgets.VerifyButton
 import com.kotlin.user.R
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
@@ -23,10 +26,19 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView {
         mRegisterBtn.onClick {
             mPresenter.register(mMobileEt.text.toString(), mPwdEt.text.toString(), mVerifyCodeEt.text.toString())
         }
+
+        mVerifyCodeBtn.onClick { mVerifyCodeBtn.requestSendVerifyNumber()}
+
+
     }
 
     override fun onRegisterResult(result: String) {
-        snackbar(mRegisterRootView, result)
+        when (result) {
+            "注册成功" -> ColoredSnackbar.confirm(snackbar(mRegisterRootView, result)).show()
+            "注册失败" -> ColoredSnackbar.alert(snackbar(mRegisterRootView, result)).show()
+            else -> ColoredSnackbar.info(snackbar(mRegisterRootView, result)).show()
+        }
+
     }
 
     override fun injectComponent() {
@@ -48,10 +60,13 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView {
         mPresenter.mView = this
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBackPressed() {
         val time = System.currentTimeMillis()
         if (time - pressTime > 2000) {
-            snackbar(mRegisterRootView, resources.getString(R.string.press_again))
+            ColoredSnackbar
+                    .warning(snackbar(mRegisterRootView, resources.getString(R.string.press_again)))
+                    .show()
             pressTime = time
         } else {
             AppManager.instance.exitApp(this)
