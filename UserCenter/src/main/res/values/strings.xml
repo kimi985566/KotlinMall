@@ -4,4 +4,9 @@
     <string name="press_again">再按一次退出</string>
     <string name="register_head_tv_right">登陆</string>
     <string name="register_head_tv_title">注册</string>
+    <string name="forgetKey">忘记密码？</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="LoginSuccess">登陆成功</string>
+    <string name="SendVerifyCodeSuccess">发送验证成功</string>
 </resources>

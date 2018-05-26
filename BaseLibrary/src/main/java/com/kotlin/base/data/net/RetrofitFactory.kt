@@ -36,7 +36,7 @@ class RetrofitFactory private constructor() {
         //Retrofit实例化
         retrofit = Retrofit.Builder()
                 .baseUrl(BaseConstant.SERVER_ADDRESS)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())//数据解析器
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(initClient())
                 .build()

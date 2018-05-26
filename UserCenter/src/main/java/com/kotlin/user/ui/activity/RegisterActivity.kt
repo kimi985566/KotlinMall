@@ -81,7 +81,7 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView, Vie
         when (v.id) {
             R.id.mVerifyCodeBtn -> {
                 mVerifyCodeBtn.requestSendVerifyNumber()
-                ColoredSnackbar.info(mRegisterRootView, "发送验证成功").show()
+                ColoredSnackbar.info(mRegisterRootView, getString(R.string.SendVerifyCodeSuccess)).show()
             }
 
             R.id.mRegisterBtn -> {

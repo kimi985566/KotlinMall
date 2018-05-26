@@ -85,6 +85,6 @@
         android:id="@+id/mRegisterBtn"
         style="@style/FullBtnStyle"
         android:elevation="@dimen/common_elevation"
-        android:text="注册"/>
+        android:text="@string/register"/>
 
 </LinearLayout>
