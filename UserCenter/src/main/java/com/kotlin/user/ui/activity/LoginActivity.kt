@@ -5,7 +5,6 @@ import android.view.View
 import com.kotlin.base.ext.enable
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMVPActivity
-import com.kotlin.base.utils.ColoredSnackbar
 import com.kotlin.user.R
 import com.kotlin.user.data.protocol.UserInfo
 import com.kotlin.user.injection.component.DaggerUserComponent
@@ -14,6 +13,7 @@ import com.kotlin.user.presenter.LoginPresenter
 import com.kotlin.user.presenter.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class LoginActivity : BaseMVPActivity<LoginPresenter>(), LoginView, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +32,12 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>(), LoginView, View.OnClick
 
         mLoginBtn.onClick(this)
         mHeaderBar.getRightView().onClick(this)
+        mForgetPwdTv.onClick(this)
     }
 
     //登陆回调
     override fun onLoginResult(result: UserInfo) {
-        ColoredSnackbar.confirm(mLoginRootView, getString(R.string.LoginSuccess)).show()
+        toast(getString(R.string.loginSuccess))
     }
 
     override fun injectComponent() {
@@ -65,6 +66,9 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>(), LoginView, View.OnClick
             }
             R.id.mRightTv -> {
                 startActivity<RegisterActivity>()
+            }
+            R.id.mForgetPwdTv -> {
+                startActivity<ForgetPwdActivity>()
             }
         }
     }

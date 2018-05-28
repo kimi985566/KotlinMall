@@ -14,6 +14,10 @@ import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.RegisterPresenter
 import com.kotlin.user.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
+import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView, View.OnClickListener {
     private var pressTime: Long = 0
@@ -42,7 +46,8 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView, Vie
      * 注册回调
      * */
     override fun onRegisterResult(result: String) {
-        ColoredSnackbar.confirm(mRegisterRootView, result).show()
+        toast(result)
+        startActivity(intentFor<LoginActivity>().singleTop().clearTop())
     }
 
     override fun injectComponent() {
@@ -69,7 +74,7 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView, Vie
         val time = System.currentTimeMillis()
         if (time - pressTime > 2000) {
             ColoredSnackbar
-                    .warning(mRegisterRootView, resources.getString(R.string.press_again))
+                    .warning(mRegisterRootView, resources.getString(R.string.pressAgain))
                     .show()
             pressTime = time
         } else {
@@ -81,10 +86,14 @@ class RegisterActivity : BaseMVPActivity<RegisterPresenter>(), RegisterView, Vie
         when (v.id) {
             R.id.mVerifyCodeBtn -> {
                 mVerifyCodeBtn.requestSendVerifyNumber()
-                ColoredSnackbar.info(mRegisterRootView, getString(R.string.SendVerifyCodeSuccess)).show()
+                ColoredSnackbar.info(mRegisterRootView, getString(R.string.sendVerifyCodeSuccess)).show()
             }
 
             R.id.mRegisterBtn -> {
+                if (mPwdEt.text.toString() != mPwdConfirmEt.text.toString()) {
+                    ColoredSnackbar.alert(mRegisterRootView, "密码不一致").show()
+                    return@onClick
+                }
                 mPresenter.register(mMobileEt.text.toString(), mPwdEt.text.toString(), mVerifyCodeEt.text.toString())
             }
         }
