@@ -8,7 +8,7 @@
     <com.kotlin.base.widgets.HeaderBar
         android:id="@+id/mHeaderBar"
         style="@style/MatchWrap"
-        app:titleText="忘记密码"/>
+        app:titleText="@string/forgetPwd"/>
 
     <LinearLayout
         style="@style/MatchWrap.Vertical"
@@ -26,7 +26,7 @@
                 android:background="@null"
                 android:drawableLeft="@drawable/icon_phone"
                 android:drawablePadding="@dimen/common_padding_small"
-                android:hint="请输入手机号码"
+                android:hint="@string/enterMobile"
                 android:inputType="phone"
                 android:paddingLeft="@dimen/common_padding_small"/>
 
@@ -36,7 +36,7 @@
                 android:id="@+id/mVerifyCodeBtn"
                 style="@style/WrapMatch"
                 android:background="@null"
-                android:text="获取验证码"
+                android:text="@string/getVerifyCode"
                 android:textColor="@color/common_blue"/>
         </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:background="@null"
             android:drawableLeft="@drawable/icon_verify_code"
             android:drawablePadding="@dimen/common_padding_small"
-            android:hint="请输入短信验证码"
+            android:hint="@string/enterVerifyCode"
             android:inputType="number"
             android:paddingLeft="@dimen/common_padding_small"/>
     </LinearLayout>
@@ -57,6 +57,5 @@
     <Button
         android:id="@+id/mNextBtn"
         style="@style/FullBtnStyle"
-        android:text="@string/common_next"
-        />
+        android:text="@string/common_next"/>
 </LinearLayout>

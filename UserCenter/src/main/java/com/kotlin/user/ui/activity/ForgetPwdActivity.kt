@@ -39,7 +39,7 @@ class ForgetPwdActivity : BaseMVPActivity<ForgetPwdPresenter>(), ForgetPwdView, 
      * */
     override fun onForgetPwdResult(result: String) {
         toast(result)
-        startActivity<ResetPwdActivity>("mobile"  to mMobileEt.text.toString())
+        startActivity<ResetPwdActivity>("mobile" to mMobileEt.text.toString())
     }
 
 

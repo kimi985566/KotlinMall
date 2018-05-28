@@ -19,8 +19,8 @@ open class BasePresenter<T : BaseView> {
     /*
         检查网络是否可用
      */
-    fun checkNetWork():Boolean{
-        if(NetWorkUtils.isNetWorkAvailable(context)){
+    fun checkNetWork(): Boolean {
+        if (NetWorkUtils.isNetWorkAvailable(context)) {
             return true
         }
         mView.onError("网络不可用")

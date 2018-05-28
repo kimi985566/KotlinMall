@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              style="@style/MatchMatch.Vertical.Common">
+
+    <com.kotlin.base.widgets.HeaderBar
+        android:id="@id/mHeaderBar"
+        style="@style/MatchWrap"
+        app:rightText="@string/common_save"
+        app:titleText="@string/userInfo"/>
+
+    <RelativeLayout
+        android:id="@+id/mUserIconView"
+        style="@style/user_info_line_style"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin"
+        android:paddingBottom="@dimen/common_padding_middle"
+        android:paddingTop="@dimen/common_padding_middle"
+        >
+
+        <TextView
+            style="@style/user_info_label_style"
+            android:text="@string/userIcon"/>
+
+        <ImageView
+            android:id="@+id/mArrowIv"
+            style="@style/WrapWrap"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mUserIconIv"
+            android:layout_width="@dimen/common_icon_width"
+            android:layout_height="@dimen/common_icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20.0dip"
+            android:layout_toStartOf="@id/mArrowIv"
+            android:src="@drawable/icon_default_user"/>
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/user_info_line_style">
+
+        <TextView
+            style="@style/user_info_label_style"
+            android:text="@string/userNickName"/>
+
+        <EditText
+            android:id="@+id/mUserNameEt"
+            style="@style/user_info_content_style"
+            android:background="@null"
+            android:hint="@string/userDefaultNickName"
+            android:maxLength="10"/>
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/user_info_line_style">
+
+        <TextView
+            style="@style/user_info_label_style"
+            android:text="@string/userGender"/>
+
+        <RadioGroup
+            style="@style/WrapWrap"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mGenderMaleRb"
+                android:layout_width="28.0dip"
+                android:layout_height="28.0dip"
+                android:layout_marginEnd="@dimen/common_margin"
+                android:background="@drawable/gender_bg_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/male"
+                android:textColor="@drawable/gender_text_selector"
+                android:textSize="@dimen/text_middle_size"/>
+
+            <RadioButton
+                android:id="@+id/mGenderFemaleRb"
+                android:layout_width="28.0dip"
+                android:layout_height="28.0dip"
+                android:background="@drawable/gender_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/female"
+                android:textColor="@drawable/gender_text_selector"
+                android:textSize="@dimen/text_middle_size"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/user_info_line_style">
+
+        <TextView
+            style="@style/user_info_label_style"
+            android:text="@string/userMobile"/>
+
+        <TextView
+            android:id="@+id/mUserMobileTv"
+            style="@style/user_info_content_style"/>
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/user_info_line_style">
+
+        <TextView
+            style="@style/user_info_label_style"
+            android:text="@string/userSign"/>
+
+        <EditText
+            android:id="@+id/mUserSignEt"
+            style="@style/user_info_content_style"
+            android:background="@null"
+            android:hint="@string/userDefaultSign"
+            android:inputType="textEmailAddress"/>
+    </RelativeLayout>
+</LinearLayout>

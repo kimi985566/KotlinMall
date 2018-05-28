@@ -8,8 +8,8 @@
     <com.kotlin.base.widgets.HeaderBar
         android:id="@+id/mHeaderBar"
         style="@style/MatchWrap"
-        app:titleText="注册"
-        android:elevation="@dimen/common_elevation"/>
+        android:elevation="@dimen/common_elevation"
+        app:titleText="@string/register"/>
 
     <LinearLayout
         style="@style/MatchWrap.Vertical"
@@ -26,7 +26,7 @@
                 android:background="@null"
                 android:drawablePadding="@dimen/common_padding_small"
                 android:drawableStart="@drawable/icon_phone"
-                android:hint="请输入手机号码"
+                android:hint="@string/enterMobile"
                 android:inputType="phone"
                 android:paddingStart="@dimen/common_padding_small"/>
 
@@ -36,7 +36,7 @@
                 android:id="@+id/mVerifyCodeBtn"
                 style="@style/WrapMatch"
                 android:background="@null"
-                android:text="获取验证码"
+                android:text="@string/getVerifyCode"
                 android:textColor="@color/common_blue"/>
         </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:background="@null"
             android:drawablePadding="@dimen/common_padding_small"
             android:drawableStart="@drawable/icon_verify_code"
-            android:hint="请输入短信验证码"
+            android:hint="@string/enterVerifyCode"
             android:inputType="number"
             android:paddingStart="@dimen/common_padding_small"
             />
@@ -63,7 +63,7 @@
             android:background="@null"
             android:drawablePadding="@dimen/common_padding_small"
             android:drawableStart="@drawable/icon_pwd"
-            android:hint="请输入密码（6-20位字母或数字）"
+            android:hint="@string/enterPwd"
             android:inputType="textPassword"
             android:paddingStart="@dimen/common_padding_small"/>
 
@@ -76,7 +76,7 @@
             android:background="@null"
             android:drawablePadding="@dimen/common_padding_small"
             android:drawableStart="@drawable/icon_pwd"
-            android:hint="请再次输入密码"
+            android:hint="@string/enterPwdAgain"
             android:inputType="textPassword"
             android:paddingStart="@dimen/common_padding_small"/>
     </LinearLayout>

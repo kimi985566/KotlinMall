@@ -38,6 +38,8 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>(), LoginView, View.OnClick
     //登陆回调
     override fun onLoginResult(result: UserInfo) {
         toast(getString(R.string.loginSuccess))
+        startActivity<UserInfoActivity>()
+        finish()
     }
 
     override fun injectComponent() {
