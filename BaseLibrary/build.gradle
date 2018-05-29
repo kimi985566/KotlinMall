@@ -62,4 +62,6 @@ dependencies {
     api "com.bigkoo:alertview:${alert_view_version}"
     //EasyPermissions
     api "pub.devrel:easypermissions:$easy_permission_version"
+    //
+    api "com.qiniu:qiniu-android-sdk:7.3.+"
 }

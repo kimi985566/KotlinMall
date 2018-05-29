@@ -13,27 +13,37 @@ import com.jph.takephoto.app.TakePhoto
 import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.TResult
+import com.kotlin.base.common.BaseConstant
 import com.kotlin.base.ext.onClick
 import com.kotlin.base.ui.activity.BaseMVPActivity
+import com.kotlin.base.utils.GlideUtils
 import com.kotlin.user.R
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.UserInfoPresenter
 import com.kotlin.user.presenter.view.UserInfoView
+import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
 import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 
 class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, View.OnClickListener,
         TakePhoto.TakeResultListener, EasyPermissions.PermissionCallbacks {
-
     companion object {
+
         const val RC_Camera = 1001
 
         private lateinit var mTakePhoto: TakePhoto
 
         private lateinit var mTempFile: File
+
+        private val mUploadManager: UploadManager by lazy { UploadManager() }
+
+        private var mLocalFile: String? = null
+
+        private var mRemoteFile: String? = null
 
     }
 
@@ -82,7 +92,8 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
     }
 
     private fun showAlertView() {
-        AlertView("选择图片", "", "取消", null, arrayOf("拍照", "相册"), this,
+        AlertView("选择图片", null, "取消",
+                null, arrayOf("拍照", "相册"), this,
                 AlertView.Style.ActionSheet, OnItemClickListener { _, position ->
             mTakePhoto.onEnableCompress(CompressConfig.ofDefaultConfig(), false)
             when (position) {
@@ -97,7 +108,8 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
     }
 
     override fun takeSuccess(result: TResult?) {
-
+        mLocalFile = result?.image?.compressPath
+        mPresenter.getUploadToken()
     }
 
     override fun takeCancel() {
@@ -106,6 +118,13 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     override fun takeFail(result: TResult?, msg: String?) {
 
+    }
+
+    override fun onGetUploadTokenResult(result: String) {
+        mUploadManager.put(mLocalFile, null, result, { key, info, response ->
+            mRemoteFile = BaseConstant.IMAGE_SERVER_ADDRESS + response?.get("hash")
+            GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFile!!, mUserIconIv)
+        }, null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -136,9 +155,9 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        AlertView("请求权限", "需要获取系统权限才能正常的使用", null,
-                arrayOf("确定"), null, this,
-                AlertView.Style.Alert, null).show()
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
@@ -147,6 +166,7 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }
