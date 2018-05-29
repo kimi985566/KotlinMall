@@ -11,6 +11,7 @@ import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.LoginPresenter
 import com.kotlin.user.presenter.view.LoginView
+import com.kotlin.user.utils.UserPrefsUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -38,6 +39,7 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>(), LoginView, View.OnClick
     //登陆回调
     override fun onLoginResult(result: UserInfo) {
         toast(getString(R.string.loginSuccess))
+        UserPrefsUtils.putUserInfo(result)
         startActivity<UserInfoActivity>()
         finish()
     }
