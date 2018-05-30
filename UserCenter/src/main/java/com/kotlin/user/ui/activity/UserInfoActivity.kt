@@ -58,7 +58,10 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
         private var mUserMobile: String? = null
         private var mUserSign: String? = null
 
-        private var storagePerm = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        private var storagePerm = arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA)
 
     }
 
@@ -195,12 +198,12 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     @AfterPermissionGranted(RC_Camera)
     private fun askCameraPerm() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) {
+        if (EasyPermissions.hasPermissions(this, *storagePerm)) {
             createTempFile()
             mTakePhoto.onPickFromCapture(Uri.fromFile(mTempFile))
         } else {
             EasyPermissions.requestPermissions(this, "需要获取系统的拍照权限！",
-                    RC_Camera, Manifest.permission.CAMERA)
+                    RC_Camera, *storagePerm)
         }
     }
 
