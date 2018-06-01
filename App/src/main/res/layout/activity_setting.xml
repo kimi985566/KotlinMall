@@ -26,6 +26,5 @@
         android:id="@+id/mLogoutBtn"
         style="@style/FullBtnStyle"
         android:enabled="true"
-        android:text="退出登录"
-        />
+        android:text="退出登录"/>
 </LinearLayout>

@@ -40,7 +40,6 @@ class LoginActivity : BaseMVPActivity<LoginPresenter>(), LoginView, View.OnClick
     override fun onLoginResult(result: UserInfo) {
         toast(getString(R.string.loginSuccess))
         UserPrefsUtils.putUserInfo(result)
-        startActivity<UserInfoActivity>()
         finish()
     }
 
