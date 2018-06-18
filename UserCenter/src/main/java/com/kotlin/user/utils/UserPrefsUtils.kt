@@ -7,7 +7,7 @@ import com.kotlin.user.data.protocol.UserInfo
 
 object UserPrefsUtils {
     /*
-      退出登录时，传入null,清空存储
+      退出登录时，传入null,清存储
    */
     fun putUserInfo(userInfo: UserInfo?) {
         AppPrefsUtils.putString(BaseConstant.KEY_SP_TOKEN, userInfo?.id ?: "")
