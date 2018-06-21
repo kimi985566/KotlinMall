@@ -9,4 +9,5 @@
         android:gravity="center"
         android:padding="@dimen/common_padding_middle"
         android:textColor="@drawable/top_category_text_selector"/>
+
 </LinearLayout>
