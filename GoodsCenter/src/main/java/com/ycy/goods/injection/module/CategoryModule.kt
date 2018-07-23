@@ -13,7 +13,8 @@ import dagger.Provides
 class CategoryModule {
 
     @Provides
-    fun provideCategoryService(categoryService: CategoryServiceImpl): CategoryService {
+    fun provideCategoryService(categoryService: CategoryServiceImpl):
+            CategoryService {
         return categoryService
     }
 

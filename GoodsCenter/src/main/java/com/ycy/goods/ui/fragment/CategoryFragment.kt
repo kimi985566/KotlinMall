@@ -6,15 +6,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kennyc.view.MultiStateView
 import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
-import com.kotlin.base.ui.fragment.BaseFragment
+import com.kotlin.base.ui.fragment.BaseMvpFragment
 import com.ycy.goods.R
 import com.ycy.goods.data.protocol.Category
+import com.ycy.goods.injection.component.DaggerCategoryComponent
+import com.ycy.goods.injection.module.CategoryModule
+import com.ycy.goods.presenter.CategoryPresenter
+import com.ycy.goods.presenter.view.CategoryView
 import com.ycy.goods.ui.adapter.SecondCategoryAdapter
 import com.ycy.goods.ui.adapter.TopCategoryAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
 
-class CategoryFragment : BaseFragment() {
+class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), CategoryView {
 
     //一级分类Adapter
     lateinit var topAdapter: TopCategoryAdapter
@@ -30,6 +35,12 @@ class CategoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        loadData()
+    }
+
+    private fun loadData(parentId: Int = 0) {
+        mPresenter.getCategory(parentId)
+
     }
 
     private fun initView() {
@@ -44,6 +55,8 @@ class CategoryFragment : BaseFragment() {
                     category.isSelected = item.id == category.id
                 }
                 topAdapter.notifyDataSetChanged()
+
+                loadData(item.id)
             }
         })
 
@@ -56,5 +69,28 @@ class CategoryFragment : BaseFragment() {
             }
         })
 
+    }
+
+    override fun injectComponent() {
+        DaggerCategoryComponent.builder()
+                .activityComponent(mActivityComponent)
+                .categoryModule(CategoryModule())
+                .build()
+                .inject(this)
+
+        mPresenter.mView = this
+    }
+
+    override fun onGetCategoryResult(result: MutableList<Category>?) {
+        result?.let {
+            if (result[0].parentId == 0) {
+                result[0].isSelected = true
+                topAdapter.setData(result)
+                mPresenter.getCategory(result[0].id)
+            } else {
+                secondAdapter.setData(result)
+                mMultiStateView.viewState = MultiStateView.VIEW_STATE_CONTENT
+            }
+        }
     }
 }

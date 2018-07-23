@@ -23,9 +23,9 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
     @Inject
     lateinit var mPresenter: T
 
-    private lateinit var mActivityComponent: ActivityComponent
+    lateinit var mActivityComponent: ActivityComponent
 
-    private lateinit var mLoadingDialog: ProgressLoading
+    lateinit var mLoadingDialog: ProgressLoading
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         initActivityInjection()

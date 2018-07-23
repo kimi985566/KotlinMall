@@ -11,7 +11,8 @@ import dagger.Component
     商品分类Component
  */
 @PreComponentScope
-@Component(dependencies = [(ActivityComponent::class)], modules = [(CategoryModule::class)])
+@Component(dependencies = [(ActivityComponent::class)],
+        modules = [(CategoryModule::class)])
 interface CategoryComponent {
     fun inject(fragment: CategoryFragment)
 }

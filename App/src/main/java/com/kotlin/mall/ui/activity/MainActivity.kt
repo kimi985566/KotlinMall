@@ -8,6 +8,7 @@ import com.kotlin.base.ui.activity.BaseActivity
 import com.kotlin.mall.R
 import com.kotlin.mall.ui.Fragment.HomeFragment
 import com.kotlin.mall.ui.Fragment.MeFragment
+import com.ycy.goods.ui.fragment.CategoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -18,7 +19,7 @@ class MainActivity : BaseActivity() {
     //主界面Fragment
     private val mHomeFragment by lazy { HomeFragment() }
     //分类页面
-    private val mCategoryFragment by lazy { MeFragment() }
+    private val mCategoryFragment by lazy { CategoryFragment() }
     //购物车页面
     private val mCartFragment by lazy { MeFragment() }
     //消息页面
