@@ -186,7 +186,7 @@ class UserInfoActivity : BaseMVPActivity<UserInfoPresenter>(), UserInfoView, Vie
     }
 
     private fun createTempFile() {
-        var tempFileName = "${com.kotlin.base.utils.DateUtils.curTime}.png"
+        val tempFileName = "${com.kotlin.base.utils.DateUtils.curTime}.png"
 
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageDirectory())) {
             mTempFile = File(Environment.getExternalStorageDirectory(), tempFileName)
